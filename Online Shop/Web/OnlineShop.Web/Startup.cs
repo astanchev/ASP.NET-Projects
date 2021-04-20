@@ -16,6 +16,7 @@
     using OnlineShop.Data.Models;
     using OnlineShop.Data.Repositories;
     using OnlineShop.Data.Seeding;
+    using OnlineShop.Services.Data;
     using OnlineShop.Services.Mapping;
     using OnlineShop.Services.Messaging;
     using OnlineShop.Web.ViewModels;
@@ -62,6 +63,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

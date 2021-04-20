@@ -5,21 +5,19 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    using AspNetCoreTemplate.Data;
-    using AspNetCoreTemplate.Data.Common;
-    using AspNetCoreTemplate.Data.Common.Repositories;
-    using AspNetCoreTemplate.Data.Models;
-    using AspNetCoreTemplate.Data.Repositories;
-    using AspNetCoreTemplate.Data.Seeding;
-    using AspNetCoreTemplate.Services.Data;
-    using AspNetCoreTemplate.Services.Messaging;
-
     using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using OnlineShop.Data;
+    using OnlineShop.Data.Common;
+    using OnlineShop.Data.Common.Repositories;
+    using OnlineShop.Data.Models;
+    using OnlineShop.Data.Repositories;
+    using OnlineShop.Data.Seeding;
+    using OnlineShop.Services.Data;
+    using OnlineShop.Services.Messaging;
 
     public static class Program
     {

@@ -3,8 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
     using OnlineShop.Data.Common;
+
+    using Microsoft.EntityFrameworkCore;
 
     public class DbQueryRunner : IDbQueryRunner
     {
