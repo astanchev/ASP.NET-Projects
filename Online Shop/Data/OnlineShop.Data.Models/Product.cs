@@ -1,5 +1,6 @@
 ﻿namespace OnlineShop.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,5 +31,7 @@
         public int SubCategoryId { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
+
+        public virtual ICollection<CartProduct> CartProducts { get; set; } = new HashSet<CartProduct>();
     }
 }

@@ -27,6 +27,8 @@
 
         public DbSet<Cart> Carts { get; set; }
 
+        public DbSet<CartProduct> CartProducts { get; set; }
+
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Product> Products { get; set; }
@@ -85,6 +87,10 @@
             builder
                 .Entity<SubCategoryCategory>()
                 .HasKey(sc => new { sc.CategoryId, sc.SubCategoryId });
+
+            builder
+                .Entity<CartProduct>()
+                .HasKey(sc => new { sc.CartId, sc.ProductId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
