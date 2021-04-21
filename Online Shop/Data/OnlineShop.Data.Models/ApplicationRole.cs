@@ -1,11 +1,9 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace OnlineShop.Data.Models
+﻿namespace OnlineShop.Data.Models
 {
     using System;
 
-    using OnlineShop.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using OnlineShop.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using OnlineShop.Data.Common.Models;
-    using OnlineShop.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using OnlineShop.Data.Common.Models;
+    using OnlineShop.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,16 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<SubCategory> SubCategories { get; set; }
+
+        public DbSet<SubCategoryCategory> SubCategoryCategories { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -72,6 +81,10 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder
+                .Entity<SubCategoryCategory>()
+                .HasKey(sc => new { sc.CategoryId, sc.SubCategoryId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

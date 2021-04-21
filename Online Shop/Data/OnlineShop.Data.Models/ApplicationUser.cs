@@ -1,12 +1,10 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace OnlineShop.Data.Models
+﻿namespace OnlineShop.Data.Models
 {
     using System;
     using System.Collections.Generic;
 
-    using OnlineShop.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using OnlineShop.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -27,6 +25,8 @@ namespace OnlineShop.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual Cart Cart { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
