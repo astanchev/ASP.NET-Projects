@@ -90,6 +90,7 @@
                 {
                     UserName = this.Input.Email,
                     Email = this.Input.Email,
+                    Cart = new Cart(),
                 };
 
                 var existingUser = await this.userManager.FindByNameAsync(user.UserName);
