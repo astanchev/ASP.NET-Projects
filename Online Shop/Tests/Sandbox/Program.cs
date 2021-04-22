@@ -6,10 +6,12 @@
     using System.Threading.Tasks;
 
     using CommandLine;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using OnlineShop.Data;
     using OnlineShop.Data.Common;
     using OnlineShop.Data.Common.Repositories;
@@ -17,6 +19,7 @@
     using OnlineShop.Data.Repositories;
     using OnlineShop.Data.Seeding;
     using OnlineShop.Services.Data;
+    using OnlineShop.Services.Data.Interfaces;
     using OnlineShop.Services.Messaging;
 
     public static class Program

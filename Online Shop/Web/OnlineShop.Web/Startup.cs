@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using OnlineShop.Data;
     using OnlineShop.Data.Common;
     using OnlineShop.Data.Common.Repositories;
@@ -17,6 +18,7 @@
     using OnlineShop.Data.Repositories;
     using OnlineShop.Data.Seeding;
     using OnlineShop.Services.Data;
+    using OnlineShop.Services.Data.Interfaces;
     using OnlineShop.Services.Mapping;
     using OnlineShop.Services.Messaging;
     using OnlineShop.Web.ViewModels;

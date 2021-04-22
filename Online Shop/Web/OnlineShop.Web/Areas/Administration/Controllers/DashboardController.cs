@@ -1,9 +1,9 @@
 ﻿namespace OnlineShop.Web.Areas.Administration.Controllers
 {
-    using OnlineShop.Services.Data;
     using OnlineShop.Web.ViewModels.Administration.Dashboard;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineShop.Services.Data.Interfaces;
 
     public class DashboardController : AdministrationController
     {

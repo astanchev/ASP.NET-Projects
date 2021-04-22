@@ -5,6 +5,7 @@
 
     using OnlineShop.Data.Common.Repositories;
     using OnlineShop.Data.Models;
+    using OnlineShop.Services.Data.Interfaces;
     using OnlineShop.Services.Mapping;
 
     public class SettingsService : ISettingsService

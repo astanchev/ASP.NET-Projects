@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Services.Data
+﻿namespace OnlineShop.Services.Data.Interfaces
 {
     using System.Collections.Generic;
 

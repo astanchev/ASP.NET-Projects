@@ -5,10 +5,10 @@
 
     using OnlineShop.Data.Common.Repositories;
     using OnlineShop.Data.Models;
-    using OnlineShop.Services.Data;
     using OnlineShop.Web.ViewModels.Settings;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineShop.Services.Data.Interfaces;
 
     public class SettingsController : BaseController
     {
