@@ -11,8 +11,10 @@
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public int CategoryId { get; set; }
 
-        public virtual ICollection<SubCategoryCategory> SubCategoryCategories { get; set; } = new HashSet<SubCategoryCategory>();
+        public Category Category { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 }

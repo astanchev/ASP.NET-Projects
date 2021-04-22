@@ -35,8 +35,6 @@
 
         public DbSet<SubCategory> SubCategories { get; set; }
 
-        public DbSet<SubCategoryCategory> SubCategoryCategories { get; set; }
-
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -83,10 +81,6 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
-            builder
-                .Entity<SubCategoryCategory>()
-                .HasKey(sc => new { sc.CategoryId, sc.SubCategoryId });
 
             builder
                 .Entity<CartProduct>()

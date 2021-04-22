@@ -7,10 +7,20 @@
 
     public class Category : BaseDeletableModel<int>
     {
+        public Category()
+        {
+            this.SubCategories = new HashSet<SubCategory>();
+        }
+
+        public Category(List<SubCategory> subCategories)
+        {
+            this.SubCategories = new HashSet<SubCategory>(subCategories);
+        }
+
         [Required]
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
-        public virtual ICollection<SubCategoryCategory> SubCategoryCategories { get; set; } = new HashSet<SubCategoryCategory>();
+        public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }
