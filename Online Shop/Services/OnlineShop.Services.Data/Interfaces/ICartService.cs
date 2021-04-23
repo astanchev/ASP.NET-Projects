@@ -7,12 +7,12 @@
 
     public interface ICartService
     {
-        Task<IEnumerable<Product>> GetAllProducts();
+        IEnumerable<Product> GetAllProducts(string userId);
 
-        Task<IEnumerable<Product>> AddProduct(string productName);
+        Task<IEnumerable<Product>> AddProduct(string productName, string userId);
 
-        Task<IEnumerable<Product>> RemoveProduct(string productName);
+        Task<IEnumerable<Product>> RemoveProduct(string productName, string userId);
 
-        Task ClearAllProducts();
+        Task ClearAllProducts(string userId);
     }
 }

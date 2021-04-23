@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CommandLine;
@@ -27,21 +28,35 @@
         public static int Main(string[] args)
         {
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+
             var serviceCollection = new ServiceCollection();
+
             ConfigureServices(serviceCollection);
+
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
 
             // Seed data on application startup
             using (var serviceScope = serviceProvider.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
                 dbContext.Database.Migrate();
+
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             using (var serviceScope = serviceProvider.CreateScope())
             {
                 serviceProvider = serviceScope.ServiceProvider;
+
+                ICartService cartService = (CartService)serviceProvider.GetRequiredService(typeof(ICartService));
+
+                var products = cartService
+                        .GetAllProducts("c4d25c45-8759-4acf-b807-7ac84eee2e15")
+                        .Select(p => p.Name)
+                        .ToList();
+
+                Console.WriteLine($"Products: {string.Join(" ", products)}");
 
                 return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
                     opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
@@ -83,6 +98,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICartService, CartService>();
+            services.AddTransient<IProductService, ProductService>();
         }
     }
 }
