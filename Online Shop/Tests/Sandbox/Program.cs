@@ -51,6 +51,10 @@
 
                 ICartService cartService = (CartService)serviceProvider.GetRequiredService(typeof(ICartService));
 
+                //cartService.AddProduct("T-Shirt", "c4d25c45-8759-4acf-b807-7ac84eee2e15");  
+                
+                cartService.RemoveProduct("T-Shirt", "c4d25c45-8759-4acf-b807-7ac84eee2e15");
+
                 var products = cartService
                         .GetAllProducts("c4d25c45-8759-4acf-b807-7ac84eee2e15")
                         .Select(p => p.Name)

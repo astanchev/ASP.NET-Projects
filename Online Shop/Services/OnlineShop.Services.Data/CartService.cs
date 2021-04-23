@@ -85,7 +85,7 @@
 
             CartProduct cartProduct = this.cartProductRepository
                                             .All()
-                                            .FirstOrDefault(cp => 
+                                            .FirstOrDefault(cp =>
                                                     cp.CartId == cart.Id &&
                                                     cp.ProductId == product.Id);
 
