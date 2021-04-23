@@ -32,30 +32,60 @@
         public async Task<IEnumerable<Product>> AddProduct(string productName, string userId)
         {
             Product product = await this.productService.GetByName(productName);
-            Cart cart = this.cartRepository
+            int cartId = this.cartRepository
                                         .All()
                                         .Where(c => c.UserId == userId)
+                                        .Select(c => c.Id)
                                         .FirstOrDefault();
 
-            CartProduct cartProduct = new CartProduct
+            CartProduct cp = this.cartProductRepository
+                                    .All()
+                                    .Where(cp => cp.CartId == cartId &&
+                                                       cp.ProductId == product.Id)
+                                    .FirstOrDefault();
+
+            if (cp == null)
             {
-                Product = product,
-                Cart = cart,
-            };
+                cp = new CartProduct
+                {
+                    CartId = cartId,
+                    ProductId = product.Id,
+                    Quantity = 1,
+                };
 
-            cart.CartProducts.Add(cartProduct);
+                await this.cartProductRepository.AddAsync(cp);
+            }
+            else
+            {
+                cp.Quantity = cp.Quantity + 1;
 
-            this.cartRepository.Update(cart);
-            await this.cartRepository.SaveChangesAsync();
+                this.cartProductRepository.Update(cp);
+            }
 
-            return cart.CartProducts
-                        .Select(cp => cp.Product)
-                        .ToList();
+            await this.cartProductRepository.SaveChangesAsync();
+
+            return this.GetAllProducts(userId);
         }
 
         public async Task ClearAllProducts(string userId)
         {
-            throw new NotImplementedException();
+            int cartId = this.cartRepository
+                                        .All()
+                                        .Where(c => c.UserId == userId)
+                                        .Select(c => c.Id)
+                                        .FirstOrDefault();
+
+            var cartProducts = this.cartProductRepository
+                                    .All()
+                                    .Where(cp => cp.CartId == cartId)
+                                    .ToList();
+
+            foreach (var cp in cartProducts)
+            {
+                this.cartProductRepository.Delete(cp);
+            }
+
+            await this.cartProductRepository.SaveChangesAsync();
         }
 
         public IEnumerable<Product> GetAllProducts(string userId)
@@ -78,30 +108,31 @@
         public async Task<IEnumerable<Product>> RemoveProduct(string productName, string userId)
         {
             Product product = await this.productService.GetByName(productName);
-            Cart cart = this.cartRepository
+            int cartId = this.cartRepository
                                         .All()
                                         .Where(c => c.UserId == userId)
+                                        .Select(c => c.Id)
                                         .FirstOrDefault();
 
-            CartProduct cartProduct = this.cartProductRepository
-                                            .All()
-                                            .FirstOrDefault(cp =>
-                                                    cp.CartId == cart.Id &&
-                                                    cp.ProductId == product.Id);
+            CartProduct cp = this.cartProductRepository
+                                    .All()
+                                    .Where(cp => cp.CartId == cartId &&
+                                                       cp.ProductId == product.Id)
+                                    .FirstOrDefault();
 
-            this.cartProductRepository.Delete(cartProduct);
-
-            // cart.CartProducts.Remove(cartProduct);
-
-            // this.cartRepository.Update(cart);
+            if (cp.Quantity == 1)
+            {
+                this.cartProductRepository.Delete(cp);
+            }
+            else
+            {
+                cp.Quantity = cp.Quantity - 1;
+                this.cartProductRepository.Update(cp);
+            }
 
             await this.cartProductRepository.SaveChangesAsync();
 
-            // await this.cartRepository.SaveChangesAsync();
-
-            return cart.CartProducts
-                        .Select(cp => cp.Product)
-                        .ToList();
+            return this.GetAllProducts(userId);
         }
     }
 }

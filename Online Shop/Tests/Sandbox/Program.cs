@@ -1,6 +1,7 @@
 ﻿namespace Sandbox
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -25,7 +26,7 @@
 
     public static class Program
     {
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
 
@@ -36,14 +37,14 @@
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
 
             // Seed data on application startup
-            using (var serviceScope = serviceProvider.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                dbContext.Database.Migrate();
+            //    dbContext.Database.Migrate();
 
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            //}
 
             using (var serviceScope = serviceProvider.CreateScope())
             {
@@ -51,21 +52,44 @@
 
                 ICartService cartService = (CartService)serviceProvider.GetRequiredService(typeof(ICartService));
 
-                //cartService.AddProduct("T-Shirt", "c4d25c45-8759-4acf-b807-7ac84eee2e15");  
-                
-                cartService.RemoveProduct("T-Shirt", "c4d25c45-8759-4acf-b807-7ac84eee2e15");
+                IProductService productService = (ProductService)serviceProvider.GetRequiredService(typeof(IProductService));
+
+                //var products = productService
+                //    .GetAll()
+                //    .GetAwaiter()
+                //    .GetResult()
+                //    .Select(p => p.Name);
+
+                //var products = cartService
+                //                .AddProduct("Jacket", "c4d25c45-8759-4acf-b807-7ac84eee2e15")
+                //                .GetAwaiter()
+                //                .GetResult()
+                //                .Select(p => p.Name);
 
                 var products = cartService
-                        .GetAllProducts("c4d25c45-8759-4acf-b807-7ac84eee2e15")
-                        .Select(p => p.Name)
-                        .ToList();
+                                .RemoveProduct("T-Shirt", "c4d25c45-8759-4acf-b807-7ac84eee2e15")
+                                .GetAwaiter()
+                                .GetResult()
+                                .Select(p => p.Name);
+
+                // cartService.ClearAllProducts("c4d25c45-8759-4acf-b807-7ac84eee2e15");
+
+                // var products = cartService
+                //        .GetAllProducts("c4d25c45-8759-4acf-b807-7ac84eee2e15")
+                //        .Select(p => p.Name)
+                //        .ToList();
 
                 Console.WriteLine($"Products: {string.Join(" ", products)}");
-
-                return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
-                    opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
-                    _ => 255);
             }
+
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    serviceProvider = serviceScope.ServiceProvider;
+
+            //    return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
+            //        opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
+            //        _ => 255);
+            //}
         }
 
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
