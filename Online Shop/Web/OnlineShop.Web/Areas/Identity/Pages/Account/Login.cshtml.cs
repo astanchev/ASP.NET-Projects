@@ -14,6 +14,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+
+    using OnlineShop.Common;
     using OnlineShop.Data.Models;
 
     [AllowAnonymous]
@@ -88,6 +90,16 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
+
+                    var user = await this.signInManager.UserManager.FindByNameAsync(this.Input.Username);
+
+                    var isInRoleAdmin = await this.signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName);
+
+                    if (isInRoleAdmin)
+                    {
+                        return this.LocalRedirect("~/Administration/Dashboard");
+                    }
+
                     return this.LocalRedirect(returnUrl);
                 }
 

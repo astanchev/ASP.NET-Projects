@@ -43,4 +43,9 @@
     <ProjectReference Include="..\OnlineShop.Web.Infrastructure\OnlineShop.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\OnlineShop.Web.ViewModels\OnlineShop.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\User\Controllers\" />
+    <Folder Include="Areas\User\Views\" />
+  </ItemGroup>
 </Project>

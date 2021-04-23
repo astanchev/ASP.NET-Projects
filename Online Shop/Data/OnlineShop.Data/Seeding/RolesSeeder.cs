@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using OnlineShop.Common;
-    using OnlineShop.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using OnlineShop.Common;
+    using OnlineShop.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

@@ -88,7 +88,7 @@
             {
                 var user = new ApplicationUser
                 {
-                    UserName = this.Input.Email,
+                    UserName = this.Input.Username,
                     Email = this.Input.Email,
                     Cart = new Cart(),
                 };
