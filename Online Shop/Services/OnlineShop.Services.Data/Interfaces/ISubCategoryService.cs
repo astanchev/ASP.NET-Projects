@@ -11,9 +11,9 @@
 
         Task<IEnumerable<SubCategory>> GetAll();
 
-        Task<SubCategory> CreateSubCategory(string subCategoryName);
+        Task<SubCategory> CreateSubCategory(string subCategoryName, int categoryId);
 
-        Task<SubCategory> ChangeSubCategoryName(string subCategoryName);
+        Task<SubCategory> ChangeSubCategoryName(string subCategoryOldName, string subCategoryNewName);
 
         Task<SubCategory> AddProduct(string subCategoryName, Product product);
 
