@@ -12,8 +12,9 @@
             this.SubCategories = new HashSet<SubCategory>();
         }
 
-        public Category(List<SubCategory> subCategories)
+        public Category(string name, List<SubCategory> subCategories)
         {
+            this.Name = name;
             this.SubCategories = new HashSet<SubCategory>(subCategories);
         }
 

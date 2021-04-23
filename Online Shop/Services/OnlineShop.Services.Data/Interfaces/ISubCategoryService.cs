@@ -17,6 +17,6 @@
 
         Task<SubCategory> AddProduct(string subCategoryName, Product product);
 
-        Task<bool> DeleteSubCategory(string subCategoryName);
+        Task DeleteSubCategory(string subCategoryName);
     }
 }

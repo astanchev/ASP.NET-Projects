@@ -13,6 +13,6 @@
 
         Task<IEnumerable<Product>> RemoveProduct(string productName);
 
-        Task<bool> ClearAllProducts();
+        Task ClearAllProducts();
     }
 }

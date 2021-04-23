@@ -15,6 +15,6 @@
 
         Task<Product> UpdateProduct(Product product);
 
-        Task<bool> DeleteProduct(string productName);
+        Task DeleteProduct(string productName);
     }
 }
