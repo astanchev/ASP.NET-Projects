@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@
     using OnlineShop.Data.Common.Repositories;
     using OnlineShop.Data.Models;
     using OnlineShop.Services.Data.Interfaces;
+    using OnlineShop.Services.Mapping;
     using OnlineShop.Web.ViewModels.Administration.Dashboard;
 
     public class SubCategoryService : ISubCategoryService
@@ -64,10 +66,12 @@
             this.subCategoryRepository.Delete(subCategory);
         }
 
-        public async Task<IEnumerable<SubCategory>> GetAll()
+        public async Task<IEnumerable<SubCategoryOutputViewModel>> GetAllByCategoryId(int categoryId)
         {
             return await this.subCategoryRepository
                         .All()
+                        .Where(s => s.CategoryId == categoryId)
+                        .To<SubCategoryOutputViewModel>()
                         .ToListAsync();
         }
 

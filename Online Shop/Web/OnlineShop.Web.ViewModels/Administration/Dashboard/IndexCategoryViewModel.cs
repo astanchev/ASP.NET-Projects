@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class IndexViewModel
+    public class IndexCategoryViewModel
     {
         public IEnumerable<CategoryOutputViewModel> Categories { get; set; }
     }

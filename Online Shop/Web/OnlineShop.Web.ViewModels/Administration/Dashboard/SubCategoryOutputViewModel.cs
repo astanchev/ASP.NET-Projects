@@ -2,13 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using OnlineShop.Data.Models;
     using OnlineShop.Services.Mapping;
 
-    public class SubCategoryOutputViewModel : SubCategoryInputViewModel, IMapFrom<SubCategory>
+    public class SubCategoryOutputViewModel : IMapFrom<SubCategory>
     {
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
+        public string Name { get; set; }
     }
 }

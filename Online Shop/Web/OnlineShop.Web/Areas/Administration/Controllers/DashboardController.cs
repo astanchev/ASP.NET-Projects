@@ -1,10 +1,11 @@
 ﻿namespace OnlineShop.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using OnlineShop.Services.Data.Interfaces;
     using OnlineShop.Web.ViewModels.Administration.Dashboard;
-
-    using System.Threading.Tasks;
 
     public class DashboardController : AdministrationController
     {
@@ -19,7 +20,7 @@
         {
             var categories = await this.categoryService.GetAll();
 
-            var viewModel = new IndexViewModel
+            var viewModel = new IndexCategoryViewModel
             {
                 Categories = categories,
             };

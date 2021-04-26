@@ -10,7 +10,7 @@
     {
         Task<SubCategory> GetByName(string subCategoryName);
 
-        Task<IEnumerable<SubCategory>> GetAll();
+        Task<IEnumerable<SubCategoryOutputViewModel>> GetAllByCategoryId(int categoryId);
 
         Task<SubCategory> CreateSubCategory(string subCategoryName, int categoryId);
 
