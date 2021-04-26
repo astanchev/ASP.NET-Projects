@@ -7,26 +7,42 @@ for (const category of categories) {
 async function loadSubCategories(e) {
     e.preventDefault();
 
-    var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+    if (e.target.dataset.open === "Open") {
 
-    const categoryId = e.target.dataset.id;
-    const url = `/api/CategoriesData/${categoryId}`;
+        e.target.dataset.open = "Closed";
+        e.target.children[0].remove();
 
-    const subCategories = await (await fetch(url, {
-        headers: { 'X-CSRF-TOKEN': token }
-    })).json();
+    } else if (e.target.parentElement.parentElement.dataset.open === "Open") {
 
-    const ulEl = createElement('ul', [], {className: 'list-group list-group-flush'});
+        e.target.parentElement.parentElement.dataset.open = "Closed";
+        e.target.parentElement.parentElement.children[0].remove();
 
-    for (const subCategory of subCategories) {
-        let liEl = createElement('li', subCategory.name, {className: 'list-group-item'});
+    } else {
 
-        liEl.dataset.id = subCategory.id;
+        e.target.dataset.open = "Open";
 
-        ulEl.appendChild(liEl);
+        var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        const categoryId = e.target.dataset.id;
+        const url = `/api/CategoriesData/${categoryId}`;
+
+        const subCategories = await (await fetch(url, {
+            headers: { 'X-CSRF-TOKEN': token }
+        })).json();
+
+        const ulEl = createElement('ul', [], { className: 'list-group list-group-flush' });
+
+        for (const subCategory of subCategories) {
+            let liEl = createElement('li', subCategory.name, { className: 'list-group-item' });
+
+            liEl.dataset.id = subCategory.id;
+
+            ulEl.appendChild(liEl);
+        }
+
+        e.target.appendChild(ulEl);
+
     }
-
-    e.target.appendChild(ulEl);
 }
 
 function createElement(type, content, attributes) {
