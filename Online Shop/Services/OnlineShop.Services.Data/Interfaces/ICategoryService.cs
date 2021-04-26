@@ -8,9 +8,9 @@
 
     public interface ICategoryService
     {
-        Task<Category> GetByName(string categoryName);
+        Task<CategoryOutputViewModel> GetByName(string categoryName);
 
-        Task<IEnumerable<Category>> GetAll();
+        Task<IEnumerable<CategoryOutputViewModel>> GetAll();
 
         Task<Category> CreateCategory(string categoryName);
 

@@ -1,7 +1,9 @@
 ﻿namespace OnlineShop.Web.ViewModels.Administration.Dashboard
 {
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
-        public int SettingsCount { get; set; }
+        public IEnumerable<CategoryOutputViewModel> Categories { get; set; }
     }
 }

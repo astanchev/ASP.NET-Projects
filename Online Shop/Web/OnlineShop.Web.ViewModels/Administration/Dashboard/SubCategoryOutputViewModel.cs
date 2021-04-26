@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class SubCategoryOutputViewModel : SubCategoryInputViewModel
+    using OnlineShop.Data.Models;
+    using OnlineShop.Services.Mapping;
+
+    public class SubCategoryOutputViewModel : SubCategoryInputViewModel, IMapFrom<SubCategory>
     {
         public int Id { get; set; }
     }

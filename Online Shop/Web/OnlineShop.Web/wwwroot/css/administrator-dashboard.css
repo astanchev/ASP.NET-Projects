@@ -1,0 +1,19 @@
+﻿.category-h1{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.category-name-holder{
+    margin-bottom: 10px;
+}
+
+.category-name {
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.category-name:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}

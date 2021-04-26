@@ -11,6 +11,8 @@
     using OnlineShop.Data.Common.Repositories;
     using OnlineShop.Data.Models;
     using OnlineShop.Services.Data.Interfaces;
+    using OnlineShop.Services.Mapping;
+    using OnlineShop.Web.ViewModels.Administration.Dashboard;
 
     public class CategoryService : ICategoryService
     {
@@ -23,7 +25,10 @@
 
         public async Task<Category> AddSubCategory(string categoryName, SubCategory subCategory)
         {
-            Category category = await this.GetByName(categoryName);
+            Category category = await this.categoryRepository
+                                        .All()
+                                        .FirstOrDefaultAsync(c =>
+                                                        c.Name == categoryName);
             category.SubCategories.Add(subCategory);
 
             this.categoryRepository.Update(category);
@@ -34,7 +39,10 @@
 
         public async Task<Category> ChangeCategoryName(string categoryOldName, string categoryNewName)
         {
-            Category category = await this.GetByName(categoryOldName);
+            Category category = await this.categoryRepository
+                                        .All()
+                                        .FirstOrDefaultAsync(c =>
+                                                        c.Name == categoryOldName);
             category.Name = categoryNewName;
 
             this.categoryRepository.Update(category);
@@ -65,22 +73,27 @@
 
         public async Task DeleteCategory(string categoryName)
         {
-            Category category = await this.GetByName(categoryName);
+            Category category = await this.categoryRepository
+                                        .All()
+                                        .FirstOrDefaultAsync(c =>
+                                                        c.Name == categoryName);
 
             this.categoryRepository.Delete(category);
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IEnumerable<CategoryOutputViewModel>> GetAll()
         {
             return await this.categoryRepository
                         .All()
+                        .To<CategoryOutputViewModel>()
                         .ToListAsync();
         }
 
-        public async Task<Category> GetByName(string categoryName)
+        public async Task<CategoryOutputViewModel> GetByName(string categoryName)
         {
             return await this.categoryRepository
                         .All()
+                        .To<CategoryOutputViewModel>()
                         .FirstOrDefaultAsync(c => c.Name == categoryName);
         }
     }

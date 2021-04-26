@@ -17,9 +17,9 @@
             }
 
             await dbContext.Categories.AddRangeAsync(
-                new List<Product>
+                new List<Category>
                 {
-                    new Product
+                    new Category
                     {
                         Name = "Clothes",
                         SubCategories = new List<SubCategory>
@@ -30,7 +30,7 @@
                             new SubCategory { Name = "Kids" },
                         },
                     },
-                    new Product
+                    new Category
                     {
                         Name = "Electronics",
                         SubCategories = new List<SubCategory>
@@ -41,7 +41,7 @@
                             new SubCategory { Name = "Accessories" },
                         },
                     },
-                    new Product
+                    new Category
                     {
                         Name = "Home appliances",
                         SubCategories = new List<SubCategory>
