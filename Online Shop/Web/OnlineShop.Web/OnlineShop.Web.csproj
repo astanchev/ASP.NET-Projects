@@ -46,6 +46,5 @@
 
   <ItemGroup>
     <Folder Include="Areas\User\Controllers\" />
-    <Folder Include="Areas\User\Views\" />
   </ItemGroup>
 </Project>

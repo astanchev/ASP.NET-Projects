@@ -10,18 +10,37 @@
     using OnlineShop.Data.Common.Repositories;
     using OnlineShop.Data.Models;
     using OnlineShop.Services.Data.Interfaces;
+    using OnlineShop.Web.ViewModels.Administration.Dashboard;
 
     public class ProductService : IProductService
     {
         private readonly IDeletableEntityRepository<Product> productRepository;
+        private readonly ISubCategoryService subCategoryService;
 
-        public ProductService(IDeletableEntityRepository<Product> productRepository)
+        public ProductService(
+            IDeletableEntityRepository<Product> productRepository,
+            ISubCategoryService subCategoryService)
         {
             this.productRepository = productRepository;
+            this.subCategoryService = subCategoryService;
         }
 
-        public async Task<Product> CreateProduct(Product product)
+        public async Task<Product> CreateProduct(ProductInputViewModel productInput)
         {
+            var subCategory = await this.subCategoryService
+                                        .GetByName(productInput.SubCategory);
+
+            Product product = new Product
+            {
+                Name = productInput.Name,
+                Description = productInput.Description,
+                Gender = productInput.Gender,
+                ImageUrl = productInput.ImageUrl,
+                Price = productInput.Price,
+                Size = productInput.Size,
+                SubCategory = subCategory,
+            };
+
             await this.productRepository.AddAsync(product);
             await this.productRepository.SaveChangesAsync();
 
@@ -49,8 +68,22 @@
                         .FirstOrDefaultAsync(c => c.Name == productName);
         }
 
-        public async Task<Product> UpdateProduct(Product product)
+        public async Task<Product> UpdateProduct(ProductInputViewModel productInput)
         {
+            var subCategory = await this.subCategoryService
+                                        .GetByName(productInput.SubCategory);
+
+            Product product = new Product
+            {
+                Name = productInput.Name,
+                Description = productInput.Description,
+                Gender = productInput.Gender,
+                ImageUrl = productInput.ImageUrl,
+                Price = productInput.Price,
+                Size = productInput.Size,
+                SubCategory = subCategory,
+            };
+
             this.productRepository.Update(product);
             await this.productRepository.SaveChangesAsync();
 

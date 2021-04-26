@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using OnlineShop.Data.Models;
+    using OnlineShop.Web.ViewModels.Administration.Dashboard;
 
     public interface IProductService
     {
@@ -11,9 +12,9 @@
 
         Task<IEnumerable<Product>> GetAll();
 
-        Task<Product> CreateProduct(Product product);
+        Task<Product> CreateProduct(ProductInputViewModel productInput);
 
-        Task<Product> UpdateProduct(Product product);
+        Task<Product> UpdateProduct(ProductInputViewModel productInput);
 
         Task DeleteProduct(string productName);
     }
