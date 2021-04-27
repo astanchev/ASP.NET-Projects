@@ -1,4 +1,5 @@
 ﻿const categories = document.getElementsByClassName("category-name");
+//const btnAddCategory = document.getElementsByClassName("btn-add-section")[0];
 
 for (const category of categories) {
     category.addEventListener('click', loadSubCategories);
