@@ -5,13 +5,13 @@
 
 @foreach (var category in Model.Categories)
 {
-<div class="card category-name-holder">
-    <div class="card-body category-name" data-id="@category.Id" data-open="Closed">
+<section class="category-name-holder">
+    <article class="category-name" data-id="@category.Id" data-open="Closed">
         @category.Name
-    </div>
-</div>}
+    </article>
+</section>}
 
-<button type="button" class="btn btn-success btn-lg">Create category</button>
+<button type="button" class="btn btn-success btn-lg btn-add-section">Create category</button>
 
 @section Scripts {
 

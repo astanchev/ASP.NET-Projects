@@ -1,4 +1,4 @@
-﻿const categories = document.getElementsByClassName("category-name-holder");
+﻿const categories = document.getElementsByClassName("category-name");
 
 for (const category of categories) {
     category.addEventListener('click', loadSubCategories);
@@ -6,16 +6,21 @@ for (const category of categories) {
 
 async function loadSubCategories(e) {
     e.preventDefault();
+    e.stopPropagation();
+
+    console.log(e.target);
+
+    if (!e.target.classList.contains("category-name")) {
+        return;
+    }
 
     if (e.target.dataset.open === "Open") {
 
         e.target.dataset.open = "Closed";
-        e.target.children[0].remove();
 
-    } else if (e.target.parentElement.parentElement.dataset.open === "Open") {
-
-        e.target.parentElement.parentElement.dataset.open = "Closed";
-        e.target.parentElement.parentElement.children[0].remove();
+        while (e.target.childNodes.length > 1) {
+            e.target.removeChild(e.target.lastChild);
+        }
 
     } else {
 
@@ -29,19 +34,14 @@ async function loadSubCategories(e) {
         const subCategories = await (await fetch(url, {
             headers: { 'X-CSRF-TOKEN': token }
         })).json();
-
-        const ulEl = createElement('ul', [], { className: 'list-group list-group-flush' });
-
+       
         for (const subCategory of subCategories) {
-            let liEl = createElement('li', subCategory.name, { className: 'list-group-item' });
+            let p = createElement('p', subCategory.name, { className: 'subcategory-name' });
 
-            liEl.dataset.id = subCategory.id;
+            p.dataset.id = subCategory.id;
 
-            ulEl.appendChild(liEl);
+             e.target.appendChild(p);
         }
-
-        e.target.appendChild(ulEl);
-
     }
 }
 
