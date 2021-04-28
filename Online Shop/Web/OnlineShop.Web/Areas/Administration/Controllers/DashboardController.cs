@@ -27,5 +27,17 @@
 
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> CreateCategory(string categoryName)
+        {
+            if (categoryName.Length < 3 || categoryName.Length > 30)
+            {
+                return this.RedirectToAction(nameof(this.Index));
+            }
+
+            var category = await this.categoryService.CreateCategory(categoryName);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
     }
 }

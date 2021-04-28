@@ -31,16 +31,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="createCategoryForm" method="post">
+                <form id="createCategoryForm" asp-area="Administration" asp-controller="Dashboard" asp-action="CreateCategory" method="post">
                     <div class="form-group">
                         <label for="categoryName" class="col-form-label">Category:</label>
-                        <input type="text" class="form-control" id="categoryName" value="">
-                    </div>                    
+                        <input type="text" required minlength="3" maxlength="30" class="form-control" id="categoryName" name="categoryName" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="sendBtn" type="Submit" class="btn btn-primary" onclick="">Create</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="sendBtn" type="button" class="btn btn-primary" onclick="">Create</button>
             </div>
         </div>
     </div>
