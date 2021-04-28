@@ -7,20 +7,18 @@
 {
 <section class="category-name-holder">
     <article class="category-name" data-id="@category.Id" data-open="Closed">
-        @category.Name
+        <p>@category.Name</p>
     </article>
 </section>}
 
-<!-- Button trigger modal -->
+<!-- Button trigger modal Category-->
 <div class="button-holder">
-    <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#createCategory" data-whatever="">
+    <a class="btn btn-primary btn-lg btn-block btn-category" data-toggle="modal" data-target="#createCategory" data-whatever="">
         Create Category
     </a>
 </div>
 
-
-
-<!-- Modal -->
+<!-- Modal Category-->
 <div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -46,7 +44,51 @@
     </div>
 </div>
 
-@section Scripts {
+<!-- Button trigger modal SubCategory-->
+<div class="button-holder">
+    <a class="btn btn-primary btn-lg btn-block btn-category" data-toggle="modal" data-target="#createSubCategory" data-whatever="">
+        Create SubCategory
+    </a>
+</div>
 
+<!-- Modal SubCategory-->
+<div class="modal fade" id="createSubCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create SubCategory </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createCategoryForm" asp-area="Administration" asp-controller="Dashboard" asp-action="CreateSubCategory" method="post">
+
+                    <div class="form-group">
+                        <label for="subCategoryName" class="col-form-label">SubCategory:</label>
+                        <input type="text" required minlength="3" maxlength="30" class="form-control" id="subCategoryName" name="subCategoryName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoryName" class="col-form-label">Category:</label>
+                        <select required id="categoryName" name="categoryName" asp-items="@(new SelectList(Model.Categories,  "Id", "Name"))">
+                            <option value="">Choose a category</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="sendBtn" type="Submit" class="btn btn-primary" onclick="">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript" src="~/js/administartor-dashboard.js"></script>
 }

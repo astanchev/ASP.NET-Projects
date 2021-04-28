@@ -9,40 +9,71 @@ async function loadSubCategories(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(e.target);
+    const container = e.target.parentElement;
 
-    if (!e.target.classList.contains("category-name")) {
+    if (!container.classList.contains("category-name")) {
         return;
     }
 
-    if (e.target.dataset.open === "Open") {
+    const btnSubCategory = container.getElementsByClassName('btn-subCategory')[0];
+    btnSubCategory.addEventListener('click', showForm);
 
-        e.target.dataset.open = "Closed";
+    if (container.dataset.open === "Open") {
 
-        while (e.target.childNodes.length > 1) {
-            e.target.removeChild(e.target.lastChild);
+        container.dataset.open = "Closed";
+        btnSubCategory.style.display = "none";
+
+        const pSubCategories = container.querySelectorAll("p.subcategory-name");
+
+        for (const subCategory of pSubCategories) {
+            container.removeChild(subCategory);
         }
 
     } else {
 
-        e.target.dataset.open = "Open";
+        container.dataset.open = "Open";
+        btnSubCategory.style.display = "block";
 
         var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        const categoryId = e.target.dataset.id;
+        const categoryId = container.dataset.id;
         const url = `/api/CategoriesData/${categoryId}`;
 
         const subCategories = await (await fetch(url, {
             headers: { 'X-CSRF-TOKEN': token }
         })).json();
-       
+
         for (const subCategory of subCategories) {
             let p = createElement('p', subCategory.name, { className: 'subcategory-name' });
 
             p.dataset.id = subCategory.id;
 
-             e.target.appendChild(p);
+            container.appendChild(p);
         }
+    }
+}
+
+function closeForm(e) {
+    e.preventDefault();
+
+    const form = e.target.parentElement.parentElement;
+
+    if (form.style.display === "none") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
+    }
+}
+
+function showForm(e) {
+    e.preventDefault();
+
+    const form = e.target.parentElement.nextElementSibling;
+
+    if (form.style.display === "none") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
     }
 }
 
